@@ -2,7 +2,7 @@ use crate::{
     BitFlags, Error, ErrorWithPin, OperationState, Register, SeekDirection, SeekFmImpulseThreshold,
     SeekMode, SeekSnrThreshold, Si4703,
 };
-use embedded_hal::{i2c::I2c, digital::InputPin};
+use embedded_hal::{digital::InputPin, i2c::I2c};
 
 type SetStartClosure<E> = dyn Fn(&mut [u16; 16]) -> Result<usize, Error<E>>;
 

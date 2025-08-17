@@ -68,8 +68,7 @@ pub struct Si4703<I2C, IC> {
 }
 
 /// Seek mode
-#[derive(Debug, Clone, Copy, PartialEq)]
-#[derive(Default)]
+#[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum SeekMode {
     /// Wrap at the end of the band (default)
     #[default]
@@ -78,10 +77,8 @@ pub enum SeekMode {
     NoWrap,
 }
 
-
 /// Seek direction
-#[derive(Debug, Clone, Copy, PartialEq)]
-#[derive(Default)]
+#[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum SeekDirection {
     /// Down (default)
     #[default]
@@ -90,10 +87,8 @@ pub enum SeekDirection {
     Up,
 }
 
-
 /// De-emphasis
-#[derive(Debug, Clone, Copy, PartialEq)]
-#[derive(Default)]
+#[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum DeEmphasis {
     /// 75 us (used in USA) (default)
     #[default]
@@ -102,10 +97,8 @@ pub enum DeEmphasis {
     Us50,
 }
 
-
 /// GPIO1 configuration
-#[derive(Debug, Clone, Copy, PartialEq)]
-#[derive(Default)]
+#[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum Gpio1Config {
     /// High impedance (default)
     #[default]
@@ -116,10 +109,8 @@ pub enum Gpio1Config {
     Low,
 }
 
-
 /// GPIO2 configuration
-#[derive(Debug, Clone, Copy, PartialEq)]
-#[derive(Default)]
+#[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum Gpio2Config {
     /// High impedance (default)
     #[default]
@@ -132,10 +123,8 @@ pub enum Gpio2Config {
     Low,
 }
 
-
 /// GPIO3 configuration
-#[derive(Debug, Clone, Copy, PartialEq)]
-#[derive(Default)]
+#[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum Gpio3Config {
     /// High impedance (default)
     #[default]
@@ -148,10 +137,8 @@ pub enum Gpio3Config {
     Low,
 }
 
-
 /// RDS mode
-#[derive(Debug, Clone, Copy, PartialEq)]
-#[derive(Default)]
+#[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum RdsMode {
     /// Standard (default)
     #[default]
@@ -160,10 +147,8 @@ pub enum RdsMode {
     Verbose,
 }
 
-
 /// Band
-#[derive(Debug, Clone, Copy, PartialEq)]
-#[derive(Default)]
+#[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum Band {
     /// 87.5-108 Mhz (USA, Europe) (default)
     #[default]
@@ -174,10 +159,8 @@ pub enum Band {
     Mhz76_90,
 }
 
-
 /// Channel spacing
-#[derive(Debug, Clone, Copy, PartialEq)]
-#[derive(Default)]
+#[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum ChannelSpacing {
     /// 200 kHz (USA, Australia) (default)
     #[default]
@@ -188,10 +171,8 @@ pub enum ChannelSpacing {
     Khz50,
 }
 
-
 /// Output mode
-#[derive(Debug, Clone, Copy, PartialEq)]
-#[derive(Default)]
+#[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum OutputMode {
     /// Stereo (default)
     #[default]
@@ -200,10 +181,8 @@ pub enum OutputMode {
     Mono,
 }
 
-
 /// Stereo to mono blend level
-#[derive(Debug, Clone, Copy, PartialEq)]
-#[derive(Default)]
+#[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum StereoToMonoBlendLevel {
     /// 19–37 RSSI dBμV (–12 dB)
     Dbuv19_37,
@@ -216,10 +195,8 @@ pub enum StereoToMonoBlendLevel {
     Dbuv37_55,
 }
 
-
 /// Volume
-#[derive(Debug, Clone, Copy, PartialEq)]
-#[derive(Default)]
+#[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum Volume {
     /// Mute (0 volume) (default)
     #[default]
@@ -286,10 +263,8 @@ pub enum Volume {
     Dbfs0,
 }
 
-
 /// Softmute Attack/Recover Rate
-#[derive(Debug, Clone, Copy, PartialEq)]
-#[derive(Default)]
+#[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum SoftmuteRate {
     /// Fastest (default)
     #[default]
@@ -302,10 +277,8 @@ pub enum SoftmuteRate {
     Slowest,
 }
 
-
 /// Softmute Attenuation
-#[derive(Debug, Clone, Copy, PartialEq)]
-#[derive(Default)]
+#[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum SoftmuteAttenuation {
     /// 16 dB (default)
     #[default]
@@ -318,10 +291,8 @@ pub enum SoftmuteAttenuation {
     Db10,
 }
 
-
 /// Required channel SNR for a valid seek.
-#[derive(Debug, Clone, Copy, PartialEq)]
-#[derive(Default)]
+#[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum SeekSnrThreshold {
     /// Disabled (default)
     #[default]
@@ -334,10 +305,8 @@ pub enum SeekSnrThreshold {
     Enabled(u8),
 }
 
-
 /// Allowable number of FM impulses for a valid seek channel.
-#[derive(Debug, Clone, Copy, PartialEq)]
-#[derive(Default)]
+#[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum SeekFmImpulseThreshold {
     /// Disabled (default)
     #[default]
@@ -350,7 +319,6 @@ pub enum SeekFmImpulseThreshold {
     Enabled(u8),
 }
 
-
 /// Tune channel frequency
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub enum TuneChannel {
@@ -362,8 +330,7 @@ pub enum TuneChannel {
 }
 
 /// RDS block errors
-#[derive(Debug, Clone, Copy, PartialEq)]
-#[derive(Default)]
+#[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum RdsBlockErrors {
     /// No errors
     #[default]
@@ -375,7 +342,6 @@ pub enum RdsBlockErrors {
     /// 6+ errors or error in checkword. Correction not possible.
     TooMany,
 }
-
 
 /// RDS block data
 #[derive(Debug, Default, Clone, Copy, PartialEq)]
