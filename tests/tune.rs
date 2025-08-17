@@ -1,6 +1,6 @@
 use embedded_hal_mock::{
-    i2c::Transaction as I2cTrans,
-    pin::{Mock as PinMock, State as PinState, Transaction as PinTrans},
+    eh1::digital::{Mock as PinMock, State as PinState, Transaction as PinTrans},
+    eh1::i2c::Transaction as I2cTrans,
 };
 use nb::block;
 use si4703::TuneChannel;
@@ -80,7 +80,7 @@ fn can_tune_with_stc_int_pin() {
     ];
     let mut pin = PinMock::new(&pin_trans);
     let mut dev = new_si4703(&transactions);
-    block!(dev.tune_with_stc_int_pin(TuneChannel::Raw(2), &pin)).unwrap();
+    block!(dev.tune_with_stc_int_pin(TuneChannel::Raw(2), &mut pin)).unwrap();
     destroy(dev);
     pin.done()
 }

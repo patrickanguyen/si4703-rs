@@ -21,13 +21,13 @@ include = [
 edition = "2018"
 
 [dependencies]
-embedded-hal = { version = "0.2.5", features = ["unproven"] }
+embedded-hal = "1"
 libm = "0.2"
 nb = "1"
 
 [dev-dependencies]
-linux-embedded-hal = "0.3"
-embedded-hal-mock = "0.7"
+linux-embedded-hal = "0.4"
+embedded-hal-mock = "0.11"
 
 [profile.release]
 lto = true

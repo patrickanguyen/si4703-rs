@@ -1,5 +1,5 @@
 use crate::{Error, Si4703};
-use embedded_hal::blocking::i2c;
+use embedded_hal::i2c::I2c;
 
 const DEVICE_ADDRESS: u8 = 0x10;
 
@@ -59,7 +59,7 @@ impl BitFlags {
 
 impl<I2C, E, IC> Si4703<I2C, IC>
 where
-    I2C: i2c::Write<Error = E> + i2c::Read<Error = E>,
+    I2C: I2c<Error = E>,
 {
     pub(crate) fn read_status(&mut self) -> Result<u16, Error<E>> {
         let mut data = [0; 4];

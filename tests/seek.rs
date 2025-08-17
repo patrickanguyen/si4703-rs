@@ -1,6 +1,6 @@
 use embedded_hal_mock::{
-    i2c::Transaction as I2cTrans,
-    pin::{Mock as PinMock, State as PinState, Transaction as PinTrans},
+    eh1::digital::{Mock as PinMock, State as PinState, Transaction as PinTrans},
+    eh1::i2c::Transaction as I2cTrans,
 };
 use nb::block;
 use si4703::{
@@ -38,6 +38,7 @@ macro_rules! invalid_config_seek_test {
         fn $name() {
             let mut dev = new_si4703(&[]);
             assert_error!(dev.configure_seek(0, $snr, $cnt), Error::InvalidInputData);
+            destroy(dev);
         }
     };
 }
@@ -200,7 +201,7 @@ fn can_seek_with_stc_int_pin() {
     ];
     let mut pin = PinMock::new(&pin_trans);
     let mut dev = new_si4703(&transactions);
-    block!(dev.seek_with_stc_int_pin(SeekMode::NoWrap, SeekDirection::Down, &pin)).unwrap();
+    block!(dev.seek_with_stc_int_pin(SeekMode::NoWrap, SeekDirection::Down, &mut pin)).unwrap();
     destroy(dev);
     pin.done()
 }
@@ -247,7 +248,7 @@ fn fail_seeking_with_stc_int_pin_test(seeking_found_statusrssi: u16) {
     let mut pin = PinMock::new(&pin_trans);
     let mut dev = new_si4703(&transactions);
     assert_error!(
-        block!(dev.seek_with_stc_int_pin(SeekMode::NoWrap, SeekDirection::Down, &pin)),
+        block!(dev.seek_with_stc_int_pin(SeekMode::NoWrap, SeekDirection::Down, &mut pin)),
         ErrorWithPin::SeekFailed
     );
     destroy(dev);

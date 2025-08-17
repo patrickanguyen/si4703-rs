@@ -1,4 +1,4 @@
-use embedded_hal_mock::i2c::Transaction as I2cTrans;
+use embedded_hal_mock::eh1::i2c::Transaction as I2cTrans;
 use si4703::{
     fill_with_rds_radio_text, get_rds_radio_text, RdsBlockData, RdsBlockErrors, RdsData, RdsMode,
     RdsRadioText, RdsRadioTextData,

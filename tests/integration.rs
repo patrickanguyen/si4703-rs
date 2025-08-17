@@ -1,4 +1,4 @@
-use embedded_hal_mock::i2c::{Mock as I2cMock, Transaction as I2cTrans};
+use embedded_hal_mock::eh1::i2c::{Mock as I2cMock, Transaction as I2cTrans};
 use si4703::{
     Band, ChannelSpacing as Spacing, DeEmphasis, Gpio1Config, Gpio2Config, Gpio3Config, OutputMode,
     Si4703, SoftmuteAttenuation, SoftmuteRate, StereoToMonoBlendLevel as Blend, Volume,

@@ -2,11 +2,11 @@ use crate::{
     marker, BitFlags, Error, RdsBlockData, RdsBlockErrors, RdsData, RdsMode, RdsRadioText,
     RdsRadioTextData, Register, Si4703,
 };
-use embedded_hal::blocking::i2c;
+use embedded_hal::i2c::I2c;
 
 impl<I2C, E, IC> Si4703<I2C, IC>
 where
-    I2C: i2c::Write<Error = E> + i2c::Read<Error = E>,
+    I2C: I2c<Error = E>,
     IC: marker::WithRds,
 {
     /// Enable RDS.

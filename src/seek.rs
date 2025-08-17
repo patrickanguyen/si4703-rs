@@ -2,11 +2,11 @@ use crate::{
     BitFlags, Error, ErrorWithPin, OperationState, Register, SeekDirection, SeekFmImpulseThreshold,
     SeekMode, SeekSnrThreshold, Si4703,
 };
-use embedded_hal::{blocking::i2c, digital::v2::InputPin};
+use embedded_hal::{digital::InputPin, i2c::I2c};
 
 impl<I2C, E, IC> Si4703<I2C, IC>
 where
-    I2C: i2c::Write<Error = E> + i2c::Read<Error = E>,
+    I2C: I2c<Error = E>,
 {
     fn get_powercfg_for_seek_config(
         powercfg: u16,
@@ -80,7 +80,7 @@ where
         &mut self,
         mode: SeekMode,
         direction: SeekDirection,
-        stc_int_pin: &P,
+        stc_int_pin: &mut P,
     ) -> nb::Result<(), ErrorWithPin<E, PinE>> {
         if self.seeking_state == OperationState::Busy
             && stc_int_pin

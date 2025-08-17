@@ -1,9 +1,9 @@
 use crate::{BitFlags, Error, ErrorWithPin, OperationState, Register, Si4703, TuneChannel};
-use embedded_hal::{blocking::i2c, digital::v2::InputPin};
+use embedded_hal::{digital::InputPin, i2c::I2c};
 
 impl<I2C, E, IC> Si4703<I2C, IC>
 where
-    I2C: i2c::Write<Error = E> + i2c::Read<Error = E>,
+    I2C: I2c<Error = E>,
 {
     /// Tune to a certain frequency
     ///
@@ -33,7 +33,7 @@ where
     pub fn tune_with_stc_int_pin<PinE, P: InputPin<Error = PinE>>(
         &mut self,
         channel: TuneChannel,
-        stc_int_pin: &P,
+        stc_int_pin: &mut P,
     ) -> nb::Result<(), ErrorWithPin<E, PinE>> {
         if self.tuning_state == OperationState::Busy
             && stc_int_pin

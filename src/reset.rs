@@ -1,4 +1,4 @@
-use embedded_hal::{blocking::delay::DelayMs, digital::v2::OutputPin};
+use embedded_hal::{delay::DelayNs, digital::OutputPin};
 
 /// Reset the device and select I2C communication (method 1, no GPIO3)
 ///
@@ -10,7 +10,7 @@ pub fn reset_and_select_i2c_method1<
     E,
     RST: OutputPin<Error = E>,
     SDA: OutputPin<Error = E>,
-    DELAY: DelayMs<u8>,
+    DELAY: DelayNs,
 >(
     rst: &mut RST,
     sda: &mut SDA,
@@ -30,7 +30,7 @@ pub fn reset_and_select_i2c_method1_with_gpio3<
     RST: OutputPin<Error = E>,
     SDA: OutputPin<Error = E>,
     GPIO3: OutputPin<Error = E>,
-    DELAY: DelayMs<u8>,
+    DELAY: DelayNs,
 >(
     rst: &mut RST,
     sda: &mut SDA,
@@ -52,7 +52,7 @@ pub fn reset_and_select_i2c_method2<
     RST: OutputPin<Error = E>,
     GPIO1: OutputPin<Error = E>,
     GPIO3: OutputPin<Error = E>,
-    DELAY: DelayMs<u8>,
+    DELAY: DelayNs,
 >(
     rst: &mut RST,
     gpio1: &mut GPIO1,
@@ -65,7 +65,7 @@ pub fn reset_and_select_i2c_method2<
     reset(rst, delay)
 }
 
-fn reset<E, RST: OutputPin<Error = E>, DELAY: DelayMs<u8>>(
+fn reset<E, RST: OutputPin<Error = E>, DELAY: DelayNs>(
     rst: &mut RST,
     delay: &mut DELAY,
 ) -> Result<(), E> {

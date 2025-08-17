@@ -4,11 +4,11 @@ use crate::{
     StereoToMonoBlendLevel, Volume,
 };
 use core::marker::PhantomData;
-use embedded_hal::blocking::i2c;
+use embedded_hal::i2c::I2c;
 
 impl<I2C, E> Si4703<I2C, ic::Si4703>
 where
-    I2C: i2c::Write<Error = E> + i2c::Read<Error = E>,
+    I2C: I2c<Error = E>,
 {
     /// Create new instance of a Si4703 device
     pub fn new(i2c: I2C) -> Self {
@@ -23,7 +23,7 @@ where
 
 impl<I2C, E> Si4703<I2C, ic::Si4702>
 where
-    I2C: i2c::Write<Error = E> + i2c::Read<Error = E>,
+    I2C: I2c<Error = E>,
 {
     /// Create new instance of a Si4702 device
     pub fn new_si4702(i2c: I2C) -> Self {
@@ -45,7 +45,7 @@ impl<I2C, IC> Si4703<I2C, IC> {
 
 impl<I2C, E, IC> Si4703<I2C, IC>
 where
-    I2C: i2c::Write<Error = E> + i2c::Read<Error = E>,
+    I2C: I2c<Error = E>,
 {
     /// Enable the oscillator.
     ///
