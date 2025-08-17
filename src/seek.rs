@@ -2,7 +2,9 @@ use crate::{
     BitFlags, Error, ErrorWithPin, OperationState, Register, SeekDirection, SeekFmImpulseThreshold,
     SeekMode, SeekSnrThreshold, Si4703,
 };
-use embedded_hal::{digital::InputPin, i2c::I2c};
+use embedded_hal::{i2c::I2c, digital::InputPin};
+
+type SetStartClosure<E> = dyn Fn(&mut [u16; 16]) -> Result<usize, Error<E>>;
 
 impl<I2C, E, IC> Si4703<I2C, IC>
 where
@@ -55,7 +57,7 @@ where
     /// It is not recommended to call this again this while the seeking
     /// is not finished. It should be waited on the STC interrupt pin.
     pub fn seek(&mut self, mode: SeekMode, direction: SeekDirection) -> nb::Result<(), Error<E>> {
-        let set_initial_value = |regs: &mut [u16; 16]| {
+        let set_initial_value = move |regs: &mut [u16; 16]| {
             let powercfg = regs[Register::POWERCFG] | BitFlags::SEEK;
             regs[Register::POWERCFG] =
                 Self::get_powercfg_for_seek_config(powercfg, mode, direction);
@@ -90,7 +92,7 @@ where
         {
             Err(nb::Error::WouldBlock)
         } else {
-            let set_initial_value = |regs: &mut [u16; 16]| {
+            let set_initial_value = move |regs: &mut [u16; 16]| {
                 let powercfg = regs[Register::POWERCFG] | BitFlags::SEEK;
                 regs[Register::POWERCFG] =
                     Self::get_powercfg_for_seek_config(powercfg, mode, direction);
@@ -124,7 +126,7 @@ where
         register: usize,
         bitflag: u16,
         state: &mut OperationState,
-        set_start_value: &dyn Fn(&mut [u16; 16]) -> Result<usize, Error<E>>,
+        set_start_value: &SetStartClosure<E>,
     ) -> nb::Result<(), Error<E>> {
         let mut regs = self.read_registers()?;
         let flag = (regs[register] & bitflag) != 0;

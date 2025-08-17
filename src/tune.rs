@@ -10,7 +10,7 @@ where
     /// It is not recommended to call this again this while the tuning
     /// is not finished. It should be waited on the STC interrupt pin.
     pub fn tune(&mut self, channel: TuneChannel) -> nb::Result<(), Error<E>> {
-        let set_initial_value = |regs: &mut [u16; 16]| {
+        let set_initial_value = move |regs: &mut [u16; 16]| {
             let raw = get_raw_tune_channel(regs[Register::SYSCONFIG2], channel)?;
             regs[Register::CHANNEL] = BitFlags::TUNE | raw;
             Ok(Register::CHANNEL)
@@ -43,7 +43,7 @@ where
         {
             Err(nb::Error::WouldBlock)
         } else {
-            let set_initial_value = |regs: &mut [u16; 16]| {
+            let set_initial_value = move |regs: &mut [u16; 16]| {
                 let raw = get_raw_tune_channel(regs[Register::SYSCONFIG2], channel)?;
                 regs[Register::CHANNEL] = BitFlags::TUNE | raw;
                 let previous_sysconfig1 = regs[Register::SYSCONFIG1];
