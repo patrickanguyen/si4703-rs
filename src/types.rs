@@ -69,53 +69,46 @@ pub struct Si4703<I2C, IC> {
 
 /// Seek mode
 #[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Default)]
 pub enum SeekMode {
     /// Wrap at the end of the band (default)
+    #[default]
     Wrap,
     /// Stop at the end of the band
     NoWrap,
 }
 
-impl Default for SeekMode {
-    fn default() -> Self {
-        SeekMode::Wrap
-    }
-}
 
 /// Seek direction
 #[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Default)]
 pub enum SeekDirection {
     /// Down (default)
+    #[default]
     Down,
     /// Up
     Up,
 }
 
-impl Default for SeekDirection {
-    fn default() -> Self {
-        SeekDirection::Down
-    }
-}
 
 /// De-emphasis
 #[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Default)]
 pub enum DeEmphasis {
     /// 75 us (used in USA) (default)
+    #[default]
     Us75,
     /// 50 us (used in Europe, Australia and Japan)
     Us50,
 }
 
-impl Default for DeEmphasis {
-    fn default() -> Self {
-        DeEmphasis::Us75
-    }
-}
 
 /// GPIO1 configuration
 #[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Default)]
 pub enum Gpio1Config {
     /// High impedance (default)
+    #[default]
     HighImpedance,
     /// High
     High,
@@ -123,16 +116,13 @@ pub enum Gpio1Config {
     Low,
 }
 
-impl Default for Gpio1Config {
-    fn default() -> Self {
-        Gpio1Config::HighImpedance
-    }
-}
 
 /// GPIO2 configuration
 #[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Default)]
 pub enum Gpio2Config {
     /// High impedance (default)
+    #[default]
     HighImpedance,
     /// STC/RDS interrupt (logic high until interrupt occurs)
     StcRdsInterrupt,
@@ -142,16 +132,13 @@ pub enum Gpio2Config {
     Low,
 }
 
-impl Default for Gpio2Config {
-    fn default() -> Self {
-        Gpio2Config::HighImpedance
-    }
-}
 
 /// GPIO3 configuration
 #[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Default)]
 pub enum Gpio3Config {
     /// High impedance (default)
+    #[default]
     HighImpedance,
     /// Mono/Stereo indicator (logic low for mono, high for stereo)
     MonoStereoIndicator,
@@ -161,31 +148,25 @@ pub enum Gpio3Config {
     Low,
 }
 
-impl Default for Gpio3Config {
-    fn default() -> Self {
-        Gpio3Config::HighImpedance
-    }
-}
 
 /// RDS mode
 #[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Default)]
 pub enum RdsMode {
     /// Standard (default)
+    #[default]
     Standard,
     /// Verbose
     Verbose,
 }
 
-impl Default for RdsMode {
-    fn default() -> Self {
-        RdsMode::Standard
-    }
-}
 
 /// Band
 #[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Default)]
 pub enum Band {
     /// 87.5-108 Mhz (USA, Europe) (default)
+    #[default]
     Mhz875_108,
     /// 76 - 108 MHz (Japan wide band)
     Mhz76_108,
@@ -193,16 +174,13 @@ pub enum Band {
     Mhz76_90,
 }
 
-impl Default for Band {
-    fn default() -> Self {
-        Band::Mhz875_108
-    }
-}
 
 /// Channel spacing
 #[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Default)]
 pub enum ChannelSpacing {
     /// 200 kHz (USA, Australia) (default)
+    #[default]
     Khz200,
     /// 100 kHz (Europe, Japan)
     Khz100,
@@ -210,50 +188,41 @@ pub enum ChannelSpacing {
     Khz50,
 }
 
-impl Default for ChannelSpacing {
-    fn default() -> Self {
-        ChannelSpacing::Khz200
-    }
-}
 
 /// Output mode
 #[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Default)]
 pub enum OutputMode {
     /// Stereo (default)
+    #[default]
     Stereo,
     /// Mono
     Mono,
 }
 
-impl Default for OutputMode {
-    fn default() -> Self {
-        OutputMode::Stereo
-    }
-}
 
 /// Stereo to mono blend level
 #[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Default)]
 pub enum StereoToMonoBlendLevel {
     /// 19–37 RSSI dBμV (–12 dB)
     Dbuv19_37,
     /// 25–43 RSSI dBμV (–6 dB).
     Dbuv25_43,
     /// 31–49 RSSI dBμV (default)
+    #[default]
     Dbuv31_49,
     /// 37–55 RSSI dBμV (+6 dB)
     Dbuv37_55,
 }
 
-impl Default for StereoToMonoBlendLevel {
-    fn default() -> Self {
-        StereoToMonoBlendLevel::Dbuv31_49
-    }
-}
 
 /// Volume
 #[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Default)]
 pub enum Volume {
     /// Mute (0 volume) (default)
+    #[default]
     Mute,
     /// –58 dBFS (extended volume range).
     Dbfsm58,
@@ -317,16 +286,13 @@ pub enum Volume {
     Dbfs0,
 }
 
-impl Default for Volume {
-    fn default() -> Self {
-        Volume::Mute
-    }
-}
 
 /// Softmute Attack/Recover Rate
 #[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Default)]
 pub enum SoftmuteRate {
     /// Fastest (default)
+    #[default]
     Fastest,
     /// Fast
     Fast,
@@ -336,16 +302,13 @@ pub enum SoftmuteRate {
     Slowest,
 }
 
-impl Default for SoftmuteRate {
-    fn default() -> Self {
-        SoftmuteRate::Fastest
-    }
-}
 
 /// Softmute Attenuation
 #[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Default)]
 pub enum SoftmuteAttenuation {
     /// 16 dB (default)
+    #[default]
     Db16,
     /// 14 dB
     Db14,
@@ -355,16 +318,13 @@ pub enum SoftmuteAttenuation {
     Db10,
 }
 
-impl Default for SoftmuteAttenuation {
-    fn default() -> Self {
-        SoftmuteAttenuation::Db16
-    }
-}
 
 /// Required channel SNR for a valid seek.
 #[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Default)]
 pub enum SeekSnrThreshold {
     /// Disabled (default)
+    #[default]
     Disabled,
     /// Enabled
     ///
@@ -374,16 +334,13 @@ pub enum SeekSnrThreshold {
     Enabled(u8),
 }
 
-impl Default for SeekSnrThreshold {
-    fn default() -> Self {
-        SeekSnrThreshold::Disabled
-    }
-}
 
 /// Allowable number of FM impulses for a valid seek channel.
 #[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Default)]
 pub enum SeekFmImpulseThreshold {
     /// Disabled (default)
+    #[default]
     Disabled,
     /// Enabled
     ///
@@ -393,11 +350,6 @@ pub enum SeekFmImpulseThreshold {
     Enabled(u8),
 }
 
-impl Default for SeekFmImpulseThreshold {
-    fn default() -> Self {
-        SeekFmImpulseThreshold::Disabled
-    }
-}
 
 /// Tune channel frequency
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -411,8 +363,10 @@ pub enum TuneChannel {
 
 /// RDS block errors
 #[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Default)]
 pub enum RdsBlockErrors {
     /// No errors
+    #[default]
     None,
     /// 1-2 errors requiring correction.
     OneOrTwo,
@@ -422,11 +376,6 @@ pub enum RdsBlockErrors {
     TooMany,
 }
 
-impl Default for RdsBlockErrors {
-    fn default() -> Self {
-        RdsBlockErrors::None
-    }
-}
 
 /// RDS block data
 #[derive(Debug, Default, Clone, Copy, PartialEq)]
