@@ -6,8 +6,8 @@ use linux_embedded_hal::{
 };
 use nb::block;
 use si4703::{
-    fill_with_rds_radio_text, reset_and_select_i2c_method1, ChannelSpacing, DeEmphasis, Si4703,
-    TuneChannel, Volume,
+    reset_and_select_i2c_method1, ChannelSpacing, DeEmphasis, ErrorWithPin, SeekDirection,
+    SeekMode, Si4703, TuneChannel, Volume,
 };
 
 fn main() {
@@ -58,20 +58,23 @@ fn main() {
     println!("BlockA, BlockB, BlockC, BlockD");
 
     loop {
-        if radio.rds_ready().unwrap() {
-            let data = radio.rds_data().unwrap();
-            println!(
-                "{:#04X}, {:#04X}, {:#04X}, {:#04X}",
-                data.a.data, data.b.data, data.c.data, data.d.data,
-            );
-            let mut text = [' '; 64];
-            let is_clear = fill_with_rds_radio_text(&mut text, &data);
-            if is_clear {
-                text = ['\0'; 64];
+        match radio.seek_with_stc_int_pin(SeekMode::Wrap, SeekDirection::Up, &mut stc_int) {
+            Err(nb::Error::WouldBlock) => {
+                let channel = radio.channel().unwrap_or(-1.0);
+                println!("Trying channel at {:1} MHz", channel);
             }
-            let s: String = text.iter().collect();
-            println!("Clear: {is_clear:?} RT: {s}");
+            Err(nb::Error::Other(ErrorWithPin::SeekFailed)) => {
+                println!("Seek Failed");
+            }
+            Err(e) => {
+                println!("Error: {:?}", e);
+            }
+            Ok(_) => {
+                let channel = radio.channel().unwrap_or(-1.0);
+                println!("Found channel at {:1} MHz", channel);
+                delay.delay_ms(5000); // listen for 5 seconds, then seek again
+            }
         }
-        delay.delay_ms(100);
+        delay.delay_ms(50);
     }
 }
